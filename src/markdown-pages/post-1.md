@@ -1,14 +1,12 @@
 ---
 title: My first blog post
+date: '2021-09-01'
 path: /blog/my-first-post
-date: '2019-05-04'
-description: >-
-  This is a test blog post so I can see if the remarkForm for Tina CMS is
-  working.
+description: This is a test post for my blog built with GatsbyJS and TinaCMS
 ---
-## Hello world. This is my first blog post with Tina
+## Hello world!
 
-    This is a code snippet in my
-    blog post.
-    const hello = "Hello World"
-    console.log(hell
+>     const hello = "Hello world";
+>     console.log(hello);
+
+> ### Does this make a quote bl

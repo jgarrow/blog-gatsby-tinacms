@@ -6,18 +6,10 @@ module.exports = {
     },
     plugins: [
         {
-            resolve: `gatsby-transformer-remark`,
+            resolve: `gatsby-source-filesystem`,
             options: {
-                // CommonMark mode (default: true)
-                commonmark: true,
-                // Footnotes mode (default: true)
-                footnotes: true,
-                // Pedantic mode (default: true)
-                pedantic: true,
-                // GitHub Flavored Markdown mode (default: true)
-                gfm: true,
-                // Plugins configs
-                plugins: []
+                name: `blog`,
+                path: `${__dirname}/blog`
             }
         },
         {
@@ -26,12 +18,6 @@ module.exports = {
                 plugins: ["gatsby-tinacms-git", "gatsby-tinacms-remark"]
             }
         },
-        {
-            resolve: `gatsby-source-filesystem`,
-            options: {
-                name: `markdown-pages`,
-                path: `${__dirname}/src/markdown-pages`
-            }
-        }
+        `gatsby-transformer-remark`
     ]
 };

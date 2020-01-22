@@ -8,17 +8,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
     const result = await graphql(`
         {
-            allMarkdownRemark(
-                sort: { order: DESC, fields: [frontmatter___date] }
-                limit: 1000
-            ) {
+            allMarkdownRemark {
                 edges {
                     node {
+                        id
                         fields {
                             slug
-                        }
-                        frontmatter {
-                            path
                         }
                     }
                 }
@@ -35,17 +30,17 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     const posts = result.data.allMarkdownRemark.edges;
 
     posts.forEach((post, index) => {
-        const previous =
-            index === posts.length - 1 ? null : posts[index + 1].node;
-        const next = index === 0 ? null : posts[index - 1].node;
+        // const previous =
+        //     index === posts.length - 1 ? null : posts[index + 1].node;
+        // const next = index === 0 ? null : posts[index - 1].node;
 
         createPage({
             path: post.node.fields.slug,
             component: blogPostTemplate,
             context: {
-                slug: post.node.fields.slug,
-                previous,
-                next
+                id: post.node.id
+                // previous,
+                // next
             }
         });
     });

@@ -1,7 +1,16 @@
 import React from "react";
 import { graphql } from "gatsby";
+import styled from "styled-components";
 
 import { remarkForm } from "gatsby-tinacms-remark";
+
+const BlogPostContainer = styled.div`
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
 
 function BlogPostTemplate({
     data // this prop will be injected by the GraphQL query below.
@@ -9,7 +18,7 @@ function BlogPostTemplate({
     const { markdownRemark } = data; // data.markdownRemark holds your post data
     const { frontmatter, html } = markdownRemark;
     return (
-        <div className="blog-post-container">
+        <BlogPostContainer className="blog-post-container">
             <div className="blog-post">
                 <h1>{frontmatter.title}</h1>
                 <h2>{frontmatter.date}</h2>
@@ -19,21 +28,22 @@ function BlogPostTemplate({
                     dangerouslySetInnerHTML={{ __html: html }}
                 />
             </div>
-        </div>
+        </BlogPostContainer>
     );
 }
 
 const BlogPostForm = {
-    field: [
+    label: "Blog Post",
+    fields: [
         {
-            name: "rawFrontmatter.title",
+            name: "frontmatter.title",
             component: "text",
             label: "Title",
             required: true
         },
-        { name: "rawFrontmatter.date", component: "date", label: "Date" },
+        { name: "frontmatter.date", component: "date", label: "Date" },
         {
-            name: "rawFrontmatter.description",
+            name: "frontmatter.description",
             component: "textarea",
             label: "Description"
         },
@@ -44,15 +54,8 @@ const BlogPostForm = {
 export default remarkForm(BlogPostTemplate, BlogPostForm);
 
 export const pageQuery = graphql`
-    query BlogPostBySlug($slug: String!) {
-        site {
-            siteMetadata {
-                title
-                author
-            }
-        }
-        markdownRemark(fields: { slug: { eq: $slug } }) {
-            ...TinaRemark
+    query($id: String!) {
+        markdownRemark(id: { eq: $id }) {
             id
             html
             frontmatter {
@@ -60,6 +63,7 @@ export const pageQuery = graphql`
                 date(formatString: "dddd, MMM Do, YYYY")
                 description
             }
+            ...TinaRemark
         }
     }
 `;

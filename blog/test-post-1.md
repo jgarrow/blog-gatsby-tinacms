@@ -23,15 +23,6 @@ description: This is a test post for my blog built with GatsbyJS and TinaCMS
 >
 > > NO. Just. no.
 
-Oh. I feel very very dumb. I just have to press enter more than once. hehe.
+    Oh. I feel very very dumb. I just have to press enter more than once. hehe.
 
-    const dumbdumb = "me";
-    console.log(dumbdumb);
-    how do i get out of the code snippet though...
-    jlsdakfjlaskjfdlaksdjf
-    I literally can't get out of this code snippet...
-    Alright.Let's try this again.
     
-    
-    Hmm. Pressing enter twice gets out of a quote block.
-    But not a code snippet. Odd.

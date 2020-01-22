@@ -6,6 +6,8 @@ description: This is a test post for my blog built with GatsbyJS and TinaCMS
 ---
     Hello world!
 
+### 
+
 >     const hello = "Hello world";
 >     console.log(hello);
 
@@ -26,4 +28,5 @@ Oh. I feel very very dumb. I just have to press enter more than once. hehe.
     const dumbdumb = "me";
     console.log(dumbdumb);
     how do i get out of the code snippet though...
-    h
+    jlsdakfjlaskjfdlaksdjf
+    I literally can't get out of

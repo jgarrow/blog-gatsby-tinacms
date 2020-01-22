@@ -21,7 +21,7 @@ description: This is a test post for my blog built with GatsbyJS and TinaCMS
 >
 > why won't it get out of the quote blockkkkk
 >
-> > NO. Just. no.
+> > NO. Just. no. 
 
 Oh. I feel very very dumb. I just have to press enter more than once. hehe.
 
@@ -29,4 +29,4 @@ Oh. I feel very very dumb. I just have to press enter more than once. hehe.
     console.log(dumbdumb);
     how do i get out of the code snippet though...
     jlsdakfjlaskjfdlaksdjf
-    I literally can't get out of
+    I literally can't get out of this code snippet...

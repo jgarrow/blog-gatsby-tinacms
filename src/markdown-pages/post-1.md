@@ -1,6 +1,6 @@
 ---
 title: My first blog post
-date: '2021-09-01'
+date: '2020-09-01'
 path: /blog/my-first-post
 description: This is a test post for my blog built with GatsbyJS and TinaCMS
 ---
@@ -9,4 +9,4 @@ description: This is a test post for my blog built with GatsbyJS and TinaCMS
 >     const hello = "Hello world";
 >     console.log(hello);
 
-> ### Does this make a quote bl
+> ### Does this make a quote block

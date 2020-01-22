@@ -9,4 +9,4 @@ description: This is a test post for my blog built with GatsbyJS and TinaCMS
 >     const hello = "Hello world";
 >     console.log(hello);
 
-> ### Does this make a quote block
+> ### "Does this make a quote block"

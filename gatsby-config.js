@@ -8,8 +8,15 @@ module.exports = {
         {
             resolve: `gatsby-source-filesystem`,
             options: {
-                name: `blog`,
-                path: `${__dirname}/blog`
+                name: `posts`,
+                path: `${__dirname}/blog/posts`
+            }
+        },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                name: `blog-images`,
+                path: `${__dirname}/blog/images`
             }
         },
         {
@@ -18,6 +25,8 @@ module.exports = {
                 plugins: ["gatsby-tinacms-git", "gatsby-tinacms-remark"]
             }
         },
-        `gatsby-transformer-remark`
+        `gatsby-transformer-remark`,
+        `gatsby-plugin-sharp`,
+        `gatsby-transformer-sharp`
     ]
 };

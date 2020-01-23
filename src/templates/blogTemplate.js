@@ -1,6 +1,8 @@
 import React from "react";
 import { graphql } from "gatsby";
 import styled from "styled-components";
+import Img from "gatsby-image";
+import get from "lodash.get";
 
 import { remarkForm } from "gatsby-tinacms-remark";
 
@@ -10,6 +12,15 @@ const BlogPostContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+`;
+
+const BlogBody = styled.div`
+    & pre {
+        background: #eae9e9;
+        box-sizing: border-box;
+        padding: 10px 15px;
+        border-radius: 8px;
+    }
 `;
 
 function BlogPostTemplate({
@@ -22,8 +33,12 @@ function BlogPostTemplate({
             <div className="blog-post">
                 <h1>{frontmatter.title}</h1>
                 <h2>{frontmatter.date}</h2>
+                <Img
+                    fluid={frontmatter.hero_image.childImageSharp.fluid}
+                    alt={frontmatter.title}
+                />
                 <p>{frontmatter.description}</p>
-                <div
+                <BlogBody
                     className="blog-post-content"
                     dangerouslySetInnerHTML={{ __html: html }}
                 />
@@ -36,16 +51,49 @@ const BlogPostForm = {
     label: "Blog Post",
     fields: [
         {
-            name: "frontmatter.title",
+            name: "rawFrontmatter.title",
             component: "text",
             label: "Title",
             required: true
         },
-        { name: "frontmatter.date", component: "date", label: "Date" },
+        { name: "rawFrontmatter.date", component: "date", label: "Date" },
         {
-            name: "frontmatter.description",
+            name: "rawFrontmatter.description",
             component: "textarea",
             label: "Description"
+        },
+        {
+            name: "rawFrontmatter.hero_image",
+            component: "image",
+            label: "Hero image",
+            parse: filename => `/blog/images/${filename}`,
+
+            previewSrc: (formValues, { input }) => {
+                const path = input.name.replace(
+                    "rawFrontmatter",
+                    "frontmatter"
+                );
+                const gastbyImageNode = get(formValues, path);
+                if (!gastbyImageNode) return "";
+                //specific to gatsby-image
+                return gastbyImageNode.childImageSharp.fluid.src;
+            },
+
+            uploadDir: () => {
+                return "/blog/images/";
+            }
+
+            // // Generate the frontmatter value based on the filename
+            // parse: filename => `/blog-images/${filename}`,
+            // // Decide the file upload directory for the post
+            // uploadDir: () => "/blog-images/",
+
+            // // Generate the src attribute for the preview image.
+            // previewSrc: markdownRemark => {
+            //     if (!markdownRemark.frontmatter.hero_image) return "";
+            //     return markdownRemark.frontmatter.hero_image.childImageSharp
+            //         .fluid.src;
+            // }
         },
         { name: "rawMarkdownBody", component: "markdown", label: "Body" }
     ]

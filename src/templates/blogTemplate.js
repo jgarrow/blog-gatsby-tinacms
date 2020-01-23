@@ -3,8 +3,9 @@ import { graphql, Link } from "gatsby";
 import styled from "styled-components";
 import Img from "gatsby-image";
 import get from "lodash.get";
-
 import { remarkForm, DeleteAction } from "gatsby-tinacms-remark";
+
+import Pagination from "../components/Pagination";
 
 const BlogPostContainer = styled.div`
     width: 80%;
@@ -53,20 +54,11 @@ function BlogPostTemplate({
                 />
             </div>
             <div>
-                <li>
-                    {previous && (
-                        <Link to={`${previous.fields.slug}`} rel="prev">
-                            ← {previous.frontmatter.title}
-                        </Link>
-                    )}
-                </li>
-                <li>
-                    {next && (
-                        <Link to={`${next.fields.slug}`} rel="next">
-                            {next.frontmatter.title} →
-                        </Link>
-                    )}
-                </li>
+                <Pagination
+                    isSinglePost={true}
+                    prevPost={previous}
+                    nextPost={next}
+                />
             </div>
         </BlogPostContainer>
     );

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Img from "gatsby-image";
 import get from "lodash.get";
 
-import { remarkForm } from "gatsby-tinacms-remark";
+import { remarkForm, DeleteAction } from "gatsby-tinacms-remark";
 
 const BlogPostContainer = styled.div`
     width: 80%;
@@ -54,6 +54,7 @@ function BlogPostTemplate({
 
 const BlogPostForm = {
     label: "Blog Post",
+    actions: [DeleteAction],
     fields: [
         {
             name: "rawFrontmatter.title",

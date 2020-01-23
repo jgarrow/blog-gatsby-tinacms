@@ -4,6 +4,7 @@ import Img from "gatsby-image";
 import styled from "styled-components";
 import { RemarkCreatorPlugin } from "gatsby-tinacms-remark";
 import { withPlugin } from "tinacms";
+import get from "lodash.get";
 
 const Heading = styled.h1`
     text-align: center;
@@ -102,17 +103,54 @@ const BlogList = ({ data, pageContext }) => {
 
 const CreatePostPlugin = new RemarkCreatorPlugin({
     label: "New Blog Post",
-    filename: form => form.filename,
     fields: [
+        { name: "title", label: "Title", component: "text", required: true },
         {
-            name: "filename",
-            component: "text",
-            label: "Filename",
-            placeholder: "/blog/posts/hello-world/index.md",
-            description:
-                "The full path to the new Markdown file, relative to the repository root."
+            name: "date",
+            label: "Date",
+            component: "date",
+            placeholder: "Sep 02, 2020"
+        },
+        {
+            name: "description",
+            label: "Description",
+            component: "textarea"
+        },
+        {
+            name: "hero_image",
+            component: "image",
+            label: "Hero image",
+            parse: filename => `/blog/images/${filename}`,
+
+            previewSrc: (formValues, { input }) => {
+                const path = `frontmatter.${input.name}`;
+
+                const gatsbyImageNode = get(formValues, path);
+
+                if (!gatsbyImageNode) return "";
+                //specific to gatsby-image
+                return gatsbyImageNode.childImageSharp.fluid.src;
+            },
+
+            uploadDir: () => "/blog/images/"
+        },
+        {
+            name: "body",
+            component: "markdown",
+            label: "Body"
         }
-    ]
+    ],
+    filename: form => `blog/posts/${form.title}.md`,
+    frontmatter: form => ({
+        title: form.title,
+        date: new Date(),
+        description: form.description,
+        hero_image: form.hero_image
+    }),
+    body: form =>
+        form.body
+            ? form.body
+            : `This is a new blog post. Please write some content.`
 });
 
 export default withPlugin(BlogList, CreatePostPlugin);

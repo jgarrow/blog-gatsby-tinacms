@@ -1,6 +1,61 @@
 import React from "react";
-import { graphql } from "gatsby";
+import { graphql, navigate } from "gatsby";
 import Img from "gatsby-image";
+import styled from "styled-components";
+
+const Heading = styled.h1`
+    text-align: center;
+`;
+
+const CardsContainer = styled.div`
+    width: 80%;
+    max-width: 675px;
+    margin: 0 auto;
+`;
+
+const Card = styled.div`
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+
+    background-color: #ffffff;
+    border-radius: 8px;
+    border-color: rgba(229, 219, 114, 0.8);
+    border-width: 0px 0px 0px 0px;
+    border-style: solid;
+    box-shadow: 0px 0px 8px 4px rgba(187, 187, 187, 0.4);
+
+    h2 {
+        margin-bottom: 0;
+        margin-top: 10px;
+    }
+
+    h2,
+    p,
+    small {
+        padding-left: 0.5rem;
+    }
+`;
+
+const ImageWrapper = styled.div`
+    width: 100%;
+    height: 300px;
+
+    @media (max-width: 600px) {
+        height: 200px;
+    }
+`;
+
+const StyledImage = styled(Img)`
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+`;
+
+const ContentWrapper = styled.div`
+    padding: 1rem;
+`;
 
 export default ({ data, pageContext }) => {
     const posts = data.allMarkdownRemark.edges;
@@ -8,23 +63,37 @@ export default ({ data, pageContext }) => {
 
     return (
         <div>
-            <h1>Blog</h1>
-            <div>
+            <Heading>Blog</Heading>
+            <CardsContainer>
                 {posts.map(post => (
-                    <div key={post.node.id}>
-                        <h2>{post.node.frontmatter.title}</h2>
-                        <Img
-                            fluid={
-                                post.node.frontmatter.hero_image.childImageSharp
-                                    .fluid
+                    <Card key={post.node.id}>
+                        <ImageWrapper
+                            onClick={() =>
+                                navigate(`/${post.node.fields.slug}`)
                             }
-                            alt={post.node.frontmatter.title}
-                        />
-                        <small>{post.node.frontmatter.date}</small>
-                        <p>{post.node.frontmatter.description}</p>
-                    </div>
+                        >
+                            <StyledImage
+                                fluid={
+                                    post.node.frontmatter.hero_image
+                                        .childImageSharp.fluid
+                                }
+                                alt={post.node.frontmatter.title}
+                            />
+                        </ImageWrapper>
+                        <ContentWrapper>
+                            <h2
+                                onClick={() =>
+                                    navigate(`/${post.node.fields.slug}`)
+                                }
+                            >
+                                {post.node.frontmatter.title}
+                            </h2>
+                            <small>{post.node.frontmatter.date}</small>
+                            <p>{post.node.frontmatter.description}</p>
+                        </ContentWrapper>
+                    </Card>
                 ))}
-            </div>
+            </CardsContainer>
         </div>
     );
 };

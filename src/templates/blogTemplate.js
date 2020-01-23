@@ -1,5 +1,5 @@
 import React from "react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import styled from "styled-components";
 import Img from "gatsby-image";
 import get from "lodash.get";
@@ -28,10 +28,13 @@ const BlogBody = styled.div`
 `;
 
 function BlogPostTemplate({
-    data // this prop will be injected by the GraphQL query below.
+    data, // this prop will be injected by the GraphQL query below.
+    pageContext
 }) {
     const { markdownRemark } = data; // data.markdownRemark holds your post data
     const { frontmatter, html } = markdownRemark;
+    const { previous, next } = pageContext;
+
     return (
         <BlogPostContainer className="blog-post-container">
             <div className="blog-post">
@@ -47,6 +50,22 @@ function BlogPostTemplate({
                     className="blog-post-content"
                     dangerouslySetInnerHTML={{ __html: html }}
                 />
+            </div>
+            <div>
+                <li>
+                    {previous && (
+                        <Link to={`/blog${previous.fields.slug}`} rel="prev">
+                            ← {previous.frontmatter.title}
+                        </Link>
+                    )}
+                </li>
+                <li>
+                    {next && (
+                        <Link to={`/blog${next.fields.slug}`} rel="next">
+                            {next.frontmatter.title} →
+                        </Link>
+                    )}
+                </li>
             </div>
         </BlogPostContainer>
     );

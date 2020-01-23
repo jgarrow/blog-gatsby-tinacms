@@ -16,6 +16,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
                         fields {
                             slug
                         }
+                        frontmatter {
+                            title
+                        }
                     }
                 }
             }
@@ -48,17 +51,17 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
     // for individual blog pages
     posts.forEach((post, index) => {
-        // const previous =
-        //     index === posts.length - 1 ? null : posts[index + 1].node;
-        // const next = index === 0 ? null : posts[index - 1].node;
+        const previous =
+            index === posts.length - 1 ? null : posts[index + 1].node;
+        const next = index === 0 ? null : posts[index - 1].node;
 
         createPage({
             path: post.node.fields.slug,
             component: blogPostTemplate,
             context: {
-                id: post.node.id
-                // previous,
-                // next
+                id: post.node.id,
+                previous,
+                next
             }
         });
     });

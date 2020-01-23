@@ -140,7 +140,11 @@ const CreatePostPlugin = new RemarkCreatorPlugin({
             label: "Body"
         }
     ],
-    filename: form => `blog/posts/${form.title}.md`,
+    filename: form => {
+        const title = form.title;
+        const filename = title.replace(/\s+/g, "-").toLowerCase();
+        return `blog/posts/${filename}.md`;
+    },
     frontmatter: form => ({
         title: form.title,
         date: new Date(),

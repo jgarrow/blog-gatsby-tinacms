@@ -82,18 +82,6 @@ const BlogPostForm = {
             uploadDir: () => {
                 return "/blog/images/";
             }
-
-            // // Generate the frontmatter value based on the filename
-            // parse: filename => `/blog-images/${filename}`,
-            // // Decide the file upload directory for the post
-            // uploadDir: () => "/blog-images/",
-
-            // // Generate the src attribute for the preview image.
-            // previewSrc: markdownRemark => {
-            //     if (!markdownRemark.frontmatter.hero_image) return "";
-            //     return markdownRemark.frontmatter.hero_image.childImageSharp
-            //         .fluid.src;
-            // }
         },
         { name: "rawMarkdownBody", component: "markdown", label: "Body" }
     ]
@@ -110,6 +98,13 @@ export const pageQuery = graphql`
                 title
                 date(formatString: "dddd, MMM Do, YYYY")
                 description
+                hero_image {
+                    childImageSharp {
+                        fluid(maxWidth: 1000) {
+                            ...GatsbyImageSharpFluid
+                        }
+                    }
+                }
             }
             ...TinaRemark
         }

@@ -25,8 +25,24 @@ module.exports = {
                 plugins: ["gatsby-tinacms-git", "gatsby-tinacms-remark"]
             }
         },
-        `gatsby-transformer-remark`,
+        // `gatsby-transformer-remark`,
         `gatsby-plugin-sharp`,
-        `gatsby-transformer-sharp`
+        `gatsby-transformer-sharp`,
+        {
+            resolve: "gatsby-transformer-remark",
+            options: {
+                plugins: [
+                    "gatsby-remark-relative-images",
+                    "gatsby-remark-normalize-paths",
+                    {
+                        resolve: "gatsby-remark-images",
+                        options: {
+                            maxWidth: 1000,
+                            linkImagesToOriginal: false
+                        }
+                    }
+                ]
+            }
+        }
     ]
 };

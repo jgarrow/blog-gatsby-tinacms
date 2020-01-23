@@ -6,6 +6,8 @@ import { RemarkCreatorPlugin } from "gatsby-tinacms-remark";
 import { withPlugin } from "tinacms";
 import get from "lodash.get";
 
+import Pagination from "../components/Pagination";
+
 const Heading = styled.h1`
     text-align: center;
 `;
@@ -62,7 +64,7 @@ const ContentWrapper = styled.div`
 
 const BlogList = ({ data, pageContext }) => {
     const posts = data.allMarkdownRemark.edges;
-    // const { currentPage, numPages } = pageContext;
+    const { currentPage, numPages } = pageContext;
 
     return (
         <div>
@@ -97,6 +99,11 @@ const BlogList = ({ data, pageContext }) => {
                     </Card>
                 ))}
             </CardsContainer>
+            <Pagination
+                currentPage={currentPage}
+                numPages={numPages}
+                baseSlug="/blog/"
+            />
         </div>
     );
 };

@@ -2,6 +2,8 @@ import React from "react";
 import { graphql, navigate } from "gatsby";
 import Img from "gatsby-image";
 import styled from "styled-components";
+import { RemarkCreatorPlugin } from "gatsby-tinacms-remark";
+import { withPlugin } from "tinacms";
 
 const Heading = styled.h1`
     text-align: center;
@@ -57,7 +59,7 @@ const ContentWrapper = styled.div`
     padding: 1rem;
 `;
 
-export default ({ data, pageContext }) => {
+const BlogList = ({ data, pageContext }) => {
     const posts = data.allMarkdownRemark.edges;
     // const { currentPage, numPages } = pageContext;
 
@@ -97,6 +99,23 @@ export default ({ data, pageContext }) => {
         </div>
     );
 };
+
+const CreatePostPlugin = new RemarkCreatorPlugin({
+    label: "New Blog Post",
+    filename: form => form.filename,
+    fields: [
+        {
+            name: "filename",
+            component: "text",
+            label: "Filename",
+            placeholder: "/blog/posts/hello-world/index.md",
+            description:
+                "The full path to the new Markdown file, relative to the repository root."
+        }
+    ]
+});
+
+export default withPlugin(BlogList, CreatePostPlugin);
 
 export const blogListQuery = graphql`
     query($skip: Int!, $limit: Int!) {

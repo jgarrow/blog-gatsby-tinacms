@@ -12,6 +12,10 @@ const BlogPostContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    & * {
+        font-family: "Inter Regular", sans-serif;
+    }
 `;
 
 const BlogBody = styled.div`
@@ -38,6 +42,7 @@ function BlogPostTemplate({
                     alt={frontmatter.title}
                 />
                 <p>{frontmatter.description}</p>
+                <hr />
                 <BlogBody
                     className="blog-post-content"
                     dangerouslySetInnerHTML={{ __html: html }}

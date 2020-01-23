@@ -6,6 +6,13 @@ module.exports = {
     },
     plugins: [
         {
+            resolve: "gatsby-source-filesystem",
+            options: {
+                path: `${__dirname}/src/pages`,
+                name: "pages"
+            }
+        },
+        {
             resolve: `gatsby-source-filesystem`,
             options: {
                 name: `posts`,
@@ -39,6 +46,13 @@ module.exports = {
                         options: {
                             maxWidth: 1000,
                             linkImagesToOriginal: false
+                        }
+                    },
+                    {
+                        resolve: `gatsby-remark-vscode`,
+                        options: {
+                            colorTheme: "Dark+ (default dark)",
+                            injectStyles: true
                         }
                     }
                 ]

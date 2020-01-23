@@ -37,6 +37,7 @@ function BlogPostTemplate({
 
     return (
         <BlogPostContainer className="blog-post-container">
+            <Link to={`blog/`}>← Back to blog</Link>
             <div className="blog-post">
                 <h1>{frontmatter.title}</h1>
                 <h2>{frontmatter.date}</h2>
@@ -54,14 +55,14 @@ function BlogPostTemplate({
             <div>
                 <li>
                     {previous && (
-                        <Link to={`/blog${previous.fields.slug}`} rel="prev">
+                        <Link to={`${previous.fields.slug}`} rel="prev">
                             ← {previous.frontmatter.title}
                         </Link>
                     )}
                 </li>
                 <li>
                     {next && (
-                        <Link to={`/blog${next.fields.slug}`} rel="next">
+                        <Link to={`${next.fields.slug}`} rel="next">
                             {next.frontmatter.title} →
                         </Link>
                     )}
